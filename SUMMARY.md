@@ -1,6 +1,7 @@
 # Table of contents
 
 * [README](README.md)
+* [软件地址](download.md)
 * [Java编程思想]()
   * [第1章](book/tij/1.md)
   * [第2章](book/tij/2.md)
@@ -26,3 +27,14 @@
   * [第3章](hpmysql/3.md)
 * [Oracle]()
   * [第1章](oracle/install/1.md)
+* [Go]()
+  * [安装](go/install.md)  
+* [Redis]()
+  * [简介](redis/jieshao.md)
+  * [各类型应用场景](redis/use.md)
+* [持续集成与持续部署]()
+  * [docker](cicd/docker.md)
+  * [docker-compose](cicd/docker-compose.md)
+* [Git]()
+  * [安装与配置](git/config.md)
+  * [创建仓库](git/repo.md)  

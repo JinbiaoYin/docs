@@ -1,6 +1,4 @@
----
-title: 各类型应用场景
----
+# redis的类型
 
 ## String
 

@@ -1,6 +1,4 @@
----
-title: 环境搭建
----
+# 环境搭建
 
 ## 下载地址
 [golang](https://golang.org/dl/)
