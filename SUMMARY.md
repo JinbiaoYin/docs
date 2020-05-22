@@ -1,7 +1,6 @@
 # Table of contents
 
 * [第一个测试页](README.md)
-* [第二个测试页](di-er-ge-ce-shi-ye.md)
 
 ## 测试文件夹
 
