@@ -37,7 +37,7 @@ Redis 一般以主/从方式部署（这里讨论的应用从实例主要用于�
 - zookeeper： 通过 zookeeper 来监控主从实例， 维护最新有效的 IP， 应用通过 zookeeper 取得 IP，对 Redis 进行访问，该方案需要编写大量的监控代码
 - sentinel： 通过 Sentinel 监控主从实例，自动进行故障恢复，该方案有个缺陷：因为主从实例地址( IP & PORT )是不同的，当故障发生进行主从切换后，应用程序无法知道新地址，故在 Jedis2.2.2 中新增了对 Sentinel 的支持，应用通过 redis.clients.jedis.JedisSentinelPool.getResource() 取得的 Jedis 实例会及时更新到新的主实例地址
 
-<img :src="$withBase('/backend/redis/1.jpg')">
+![Redis HA 集群架构](https://blog-gitbook.oss-cn-beijing.aliyuncs.com/redis/1.jpg)
 
 注意： sentinel 是解决 HA 问题的，cluster 是解决主从复制问题的，不重复，并且经常一起用
 

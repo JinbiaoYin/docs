@@ -14,9 +14,9 @@ title: MySQL 5.7 zip压缩版安装
 
 2. win+r，输入`regedit`，打开注册编辑器，在 `HKEY_LOCAL_MACHINE` -> `system` -> `ControlSet001`-> `service` 与 `HKEY_LOCAL_MACHINE` -> `system` -> `ControlSet002` -> `service` 中删除所有MySQL目录。
 
-::: tip
+
 如果没有完全删除，会一直卡在安装界面。
-:::
+
 
 ## 安装
 1. 将mysql中的my-default复制一份为my.ini，并删除my.ini中的配置。
@@ -53,9 +53,9 @@ mysqld --initialize
 mysqld –-install
 ```
 
-::: tip
+
 安装失败是由于没有卸载干净，cmd输入 `sc delete mysql` ，再重新尝试install
-:::
+
 
 6. 启动服务
 net start mysql
@@ -78,11 +78,11 @@ net start mysql
 ```
 10. 重新打开Navicat，使用设置的密码连接。
 
-::: tip
+
 如果出现密码过期问题，就把 `skip-grant-tables` 重新加上，重启服务。
 用navicat或者cmd窗口连接mysql，将 `user` 表的 `password_expired` 改为 N 就行。
 再注释 `skip-grant-tables` ，重启服务。
-:::
+
 
 ## 参考资料
 - [我的博客园](https://www.cnblogs.com/Begodpath/p/9174841.html)

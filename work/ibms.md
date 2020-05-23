@@ -28,7 +28,7 @@ title: 智能化建筑集成系统
 ### sw-iis 客户端
 使用的竟然是 `Electronjs`，一个使用 `JavaScript`,`HTML`和`CSS`构建跨平台的桌面应用程序。我还以为用的是 `C#`。于是我把 [electronjs](https://www.electronjs.org/) 提供的 DEMO 下了下来，并运行了一下。结果如下：
 
-<img :src="$withBase('/others/work/electronjs.jpg')">
+![electronjs](https://blog-gitbook.oss-cn-beijing.aliyuncs.com/work/ibms/electronjs.jpg)
 
 和 sw-iis 客户端的效果是一模一样的。
 

@@ -8,9 +8,9 @@ title: Git分支管理
 $ git branch
 * master
 ```
-::: tip
+
 当你执行 `git init` 的时候，默认情况下 Git 就会创建 master 分支。
-:::
+
 
 若手动创建分支。执行 `git branch (branchname)` 即可。例如：
 ```sh
@@ -33,9 +33,9 @@ $ git commit -m  "删除3.txt"
  1 file changed, 1 deletion(-)
  delete mode 100644 3.txt
 ```
-::: tip
+
 如果删除了**3.txt**，但没有 `git commit`，当切换分支到**master**再切换到**testing**，会发现删除的**3.txt**又回来了。这是因为`git rm`只删除了**工作区**的文件，没有删除**暂存区**的文件。当再执行`git checkout`切换分支时，不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。
-:::
+
 
 
 ## git checkout
@@ -99,7 +99,6 @@ $ git rebase --continue
 
 **注意：**`git rebase` 是一个比较危险的操作，它会重写历史，建议只在自己的分支上使用，不要在公共分支上使用它。
 
-::: tip
+
 使用规则：
 当本地 master 分支和远端不一致，需要切换到本地 master 分支，并`git pull`，然后切换到你自己的分支，执行`git rebase master`，如果有冲突则解决后重新`git add .`，并执行`git rebase --continue`，之后就可以申请合并到主分支了。
-:::

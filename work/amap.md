@@ -21,9 +21,9 @@ VueAMap.initAMapApiLoader({
   v: '1.4.15',
   uiVersion: '1.0'})
 ```
-::: tip
+
 key 为自己申请的web端key，v 是使用的SDK版本。
-:::
+
 
 3. App.vue
 

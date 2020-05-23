@@ -36,7 +36,7 @@ title: 视频监控
 
 使用大华提供的demo，运行的效果图如下：
 
-<img :src="$withBase('/others/sdk/sdk-video.jpg')">
+![sdk-video](https://blog-gitbook.oss-cn-beijing.aliyuncs.com/work/video/sdk-video.jpg)
 
 由于我本地ip和ipc不是同一网关，因此没测试成功，登录不上去。
 
@@ -67,9 +67,6 @@ title: 视频监控
 
 
 第三种方法就是使用浏览器插件，例如vlc，但是谷歌浏览器已经禁止插件了，如果使用这种方式最简单，但是局限性就是只能使用ie或者谷歌41版本以下。
-
-
-
 
 
 ##  **rtsp** ，hls 和 **rtmp** 

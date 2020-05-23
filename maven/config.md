@@ -18,9 +18,9 @@ title: maven配置镜像和私服
 </mirrors>  
 ```
 
-::: tip
+
 `<mirrorOf>central</mirrorOf>` 表示 此镜像将会覆盖 `id` 为 `central` 的仓库。
-:::
+
 
 ### 配置本地项目仓库
 在项目的 `pom.xml` 中配置 `<repositories/>`。例如：

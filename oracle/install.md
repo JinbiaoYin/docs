@@ -7,9 +7,9 @@
 1. 将两个压缩包解压至同一目录。
 
 2. 点击 `setup.exe` 开始安装，安装过程中选择 `桌面版`。
-::: tip
+
 输入的口令就是后面要用到的密码。
-:::
+
 
 3. 安装检查时，如果全部失败，点击忽略即可。
 
@@ -27,16 +27,16 @@
 
 `oci：D:\app\Administrator\product\instantclient-basic-win32-10.2.0.5\instantclient_10_2\oci.dll`
 
-::: tip
+
 由于 PL/SQL 只有32位的dll,最好去网上下个oracle instantclient 32位客户端。
 主要是需要 oci.dll 来连接数据库。
-:::
+
 
 3. 配置完毕，使用 `scott` 用户和密码测试登录。
-::: tip
+
 如果报 make sure ...32bit oci.dll 说明oci.dll配置出错，去确认你配置的oci.dll是否为32位的。
 如果报tns错误，说明找不到tnsnames.ora,这时候先去检测你的环境变量有没有配置好。
-:::
+
 
 ## 配置环境变量(待修改)
 1. ORACLE_HOME：数据库的实例启动所需要的所有的程序和相关的文件（除了数据库外）。

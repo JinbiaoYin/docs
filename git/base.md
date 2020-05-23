@@ -9,9 +9,9 @@ $ git status -s
 ?? 1.txt
 ?? 2.txt
 ```
-::: tip
+
 ?? 表示未添加到暂存区。`git status` 命令用于查看项目的当前状态。
-:::
+
 
 接下来我们执行 `git add` 命令来添加文件：
 ```sh
@@ -24,10 +24,10 @@ $ git status -s
 A  1.txt
 A  2.txt
 ```
-::: tip
+
 可以使用 `git add .` 命令来添加当前项目的所有文件。
 "<span style="color:#13A10E;">A</span>" 代表新增已添加到暂存区的文件
-:::
+
 
 修改了文件**1.txt**后，使用 `git status -s` 查看当前项目状态:
 ```sh
@@ -35,9 +35,9 @@ $ git status -s
 AM 1.txt
 A  2.txt
 ```
-::: tip
+
 "<span style="color:#13A10E;">A</span><span style="color:red;">M</span>" 状态的意思是，这个文件在我们将它添加到缓存之后又有改动。改动后我们再执行 `git add` 命令将其添加到缓存中：
-:::
+
 ```
 $ git add .
 ```
@@ -51,10 +51,10 @@ $ git status -s
 A  1.txt
 A  2.txt
 ```
-::: tip
+
 A 代表新增文件，M 代表修改文件。
 <span style="color:red;">红色</span>未添加（`git add`）到缓存区，<span style="color:#13A10E;">蓝色</span>已添加到缓存区。
-:::
+
 
 
 ## git diff
@@ -110,12 +110,12 @@ index 0000000..85b2130
 +<E7><AC><AC><E4><BA><8C><E4><B8><AA><E6><96><87><E4><BB><B6>
 \ No newline at end of file
 ```
-::: tip
+
 - 尚未缓存的改动：**git diff**
 - 查看已缓存的改动：**git diff --cached**
 - 查看已缓存的与未缓存的所有改动：**git diff HEAD**
 - 显示摘要而非整个 diff：**git diff --stat**
-:::
+
 
 ## git commit
 使用 `git add` 命令将快照的内容写入暂存区， 而执行 `git commit` 将缓存区内容添加到仓库中。

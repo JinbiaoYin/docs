@@ -144,10 +144,10 @@ public AbstractBaseResult reg(@ApiParam(name = "tbUser", value = "用户模型")
     return error("注册失败，请重试", null);
 }
 ```
-::: tip
+
 上述代码加上了`@ApiOperation` 和 `@ApiParam`，它们是最常用的注解
 如果不期望过于侵入代码，可以将`@ApiParam`用`@ApiImplicitParams`和`@ApiImplicitParam`代替
-:::
+
 
 
 ### 访问 Swagger2

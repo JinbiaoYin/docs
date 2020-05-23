@@ -47,9 +47,9 @@ form表单中可以定义`enctype`属性，该属性的含义是在发送到服�
 
 所以使用`application/json`将json对象的字符串传给服务器，服务器使用`@RequestBody`可以直接解析为对象。
 
-:::tip
+
 使用ajax跨域请求时，如果设置Header的ContentType为 application/json，它会发两次请求，第一次先发Method为OPTIONS的请求到服务器，
 这个请求会询问服务器支持那些请求方法(比如GET,POST)等。如果这个请求支持跨域的话，就会发送第二个请求，否则的话在控制台会报错，第二个请求不会请求。
-:::
+
 
 

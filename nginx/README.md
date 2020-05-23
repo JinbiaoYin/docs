@@ -127,9 +127,9 @@ http {
 	}
 }
 ```
-::: tip
+
 与虚拟主机配置不同的地方在于proxy_pass和root，root是在本机，proxy_pass是转发。
-:::
+
 
 ## 负载均衡
 使用nginx实现负载均衡，类似于eureka那种效果，参考配置：

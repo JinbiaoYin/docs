@@ -117,7 +117,7 @@ WHERE prod_name REGEXP ''
 
 ### 10.2 拼接字段
 
-:::tip 多数DBMS使用+或\|\|来实现拼接，MySQL则使用Concat\(\)函数来实现。当把SQL语句转换成MySQL语句时一定要把这个区别铭记在心。 :::
+ 多数DBMS使用+或\|\|来实现拼接，MySQL则使用Concat\(\)函数来实现。当把SQL语句转换成MySQL语句时一定要把这个区别铭记在心。 
 
 Trim函数 MySQL支持`RTrim()`，还支持`LTrim()`（去掉串左边的空格）以及`Trim()`（去掉串左右两边的空格）。
 
@@ -193,9 +193,9 @@ WHERE Date(order_date) = '2005-09-01'
 * MIN\(\) 返回某列的最小值
 * SUM\(\) 返回某列值之和
 
-:::tip AVG\(\)函数忽略列值为NULL的行。  
+ AVG\(\)函数忽略列值为NULL的行。  
 使用COUNT\(\*\)对表中行的数目进行计数，不管表列中包含的是空值（NULL）还是非空值。  
-使用COUNT\(column\)对特定列中具有值的行进行计数，忽略NULL值。 :::
+使用COUNT\(column\)对特定列中具有值的行进行计数，忽略NULL值。 
 
 可以在SUM\(\)中使用计算表达式
 
@@ -297,12 +297,12 @@ END;
 
 这句语句的意思是，创建一个名为 test\_procedure 的存储过程，`BEGIN`和`END`用来限定存储过程体。这个存储过程没有参数，但后跟的\(\)仍然需要。
 
-:::tip  
+  
 mysql命令行客户机的分隔符为;。如果直接在存储过程体中使用;,会被判断为语句结束，而不是过程体的分隔符。为了在使用存储过程时，将过程体和整个存储过程的分隔符区别开，解决方法是临时更改命令行实用程序的语句分隔符。
 
 除\符号外，任何字符都可以用作语句分隔符。
 
-如果你使用的是mysql命令行实用程序，在使用存储过程时，注意临时更改语句分隔符。 :::
+如果你使用的是mysql命令行实用程序，在使用存储过程时，注意临时更改语句分隔符。 
 
 例如，在mysql命令行实用程序中，将语句分隔符临时更改为//。
 
@@ -430,7 +430,7 @@ BEGIN
 END
 ```
 
-:::tip 使用`DECLARE ordernumbers CURSOR FOR ...`，为查询设置一个游标。`DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;`是在条件出现时被执行的代码。这里，它指出当SQLSTATE '02000'出现时，SET done=1。SQLSTATE为02000代表无更多数据。 :::
+ 使用`DECLARE ordernumbers CURSOR FOR ...`，为查询设置一个游标。`DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;`是在条件出现时被执行的代码。这里，它指出当SQLSTATE '02000'出现时，SET done=1。SQLSTATE为02000代表无更多数据。 
 
 ## 第25章 使用触发器
 

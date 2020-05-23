@@ -14,14 +14,14 @@ func main(){
 	fmt.Println("Hello World!")
 }
 ```
-:::tip
+
 `package`指定当前包名。  
 `import`导入包。  
 `func`声明一个函数。  
 golang 中程序的入口为 main 函数。
 golang 中语句不需要加`;`，一行写一条语句。如果要一行写多条就需要用`;`。
 golang 要求引用的包和声明的变量必须要用到，否则无法通过编译。
-:::
+
 
 使用cmd命令行，找到源码编译并运行
 ```
@@ -32,8 +32,8 @@ hello.exe
 ```
 go run hello.go
 ```
-:::tip
+
 `go build`是编译命令，将源代码编译成 exe 可执行文件。  
 `go run`是编译和运行命令，它会将源代码编译后运行，不会保留编译后的可执行文件。
-:::
+
 

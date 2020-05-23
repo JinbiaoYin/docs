@@ -69,11 +69,11 @@ Compile test package install deploy
 ## Site 生命周期
 Site
 
-::: tip
+
 不同的生命周期的命令可以同时执行
 例如：
 mvn clean package
-:::
+
 
 ## 版本冲突解决
 ### 路径近者优先原则

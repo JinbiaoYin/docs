@@ -38,10 +38,10 @@ title: Docker Compose
 ```sh
 curl -L https://github.com/docker/compose/releases/download/1.26.0-rc2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 ```
-::: tip
+
 将下载路径中的 `1.26.0-rc2` 修改为你需要的版本。
 这里下载到`/usr/local/bin/`，并重命名为 `docker-compose`
-:::
+
 2. **下载完成后，赋予权限**
 ```sh
 chmod +x /usr/local/bin/docker-compose
@@ -67,7 +67,7 @@ services:
       - "/data"
 ```
 
-::: tip
+
 - `version`: 当前**docker-compose**的版本
 - `services`: 所有的服务
 - `tomcat` : 第一个服务
@@ -75,4 +75,3 @@ services:
 - `image` : 镜像
 - `ports` : 端口映射
 - `volumes` : 指定数据卷
-:::

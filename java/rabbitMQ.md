@@ -13,7 +13,7 @@ Message Queue（MQ），消息队列中间件。很多人都说：MQ 通过将�
 #### 重 Topic
 kafka、JMS（ActiveMQ）就属于这个流派，生产者会发送 key 和数据到 Broker，由 Broker 比较 key 之后决定给哪个消费者。这种模式是我们最常见的模式，是我们对 MQ 最多的印象。在这种模式下一个 topic 往往是一个比较大的概念，甚至一个系统中就可能只有一个 topic，topic 某种意义上就是 queue，生产者发送 key 相当于说：“hi，把数据放到 key 的队列中”。
 
-<img :src="$withBase('/backend/rabbitMQ/01.png')">
+![示意图](https://blog-gitbook.oss-cn-beijing.aliyuncs.com/java/rabbitmq/01.png)
 
 如上图所示，Broker 定义了三个队列，key1，key2，key3，生产者发送数据的时候会发送 key1 和 data，Broker 在推送数据的时候则推送 data（也可能把 key 带上）。
 
@@ -22,14 +22,14 @@ kafka、JMS（ActiveMQ）就属于这个流派，生产者会发送 key 和数�
 ### 轻 Topic
 这种的代表是 RabbitMQ（或者说是 AMQP）。生产者发送 key 和数据，消费者定义订阅的队列，Broker 收到数据之后会通过一定的逻辑计算出 key 对应的队列，然后把数据交给队列。
 
-<img :src="$withBase('/backend/rabbitMQ/02.png')">
+![示意图](https://blog-gitbook.oss-cn-beijing.aliyuncs.com/java/rabbitmq/02.png)
 
 这种模式下解耦了 key 和 queue，在这种架构中 queue 是非常轻量级的（在 RabbitMQ 中它的上限取决于你的内存），消费者关心的只是自己的 queue；生产者不必关心数据最终给谁只要指定 key 就行了，中间的那层映射在 AMQP 中叫 exchange（交换机）。  
 
 ### 无 Broker 的 MQ
 无 Broker 的 MQ 的代表是 ZeroMQ。该作者非常睿智，他非常敏锐的意识到——MQ 是更高级的 Socket，它是解决通讯问题的。所以 ZeroMQ 被设计成了一个“库”而不是一个中间件，这种实现也可以达到——没有 Broker 的目的。
 
-<img :src="$withBase('/backend/rabbitMQ/03.png')">
+![示意图](https://blog-gitbook.oss-cn-beijing.aliyuncs.com/java/rabbitmq/03.png)
 
 节点之间通讯的消息都是发送到彼此的队列中，每个节点都既是生产者又是消费者。ZeroMQ 做的事情就是封装出一套类似于 Socket 的 API 可以完成发送数据，读取数据
 

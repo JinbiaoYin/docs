@@ -18,9 +18,9 @@ $ git init newrepo
 $ git add README.md
 $ git commit -m '初始化项目版本'
 ```
-::: tip
+
 以上命令将目录下新建的 **README.md** 文件先添加到暂存区，然后提交到本地仓库中。
-:::
+
 
 
 ## git clone
@@ -49,6 +49,5 @@ $ git clone git@gitee.com:shuaibiao/newrepo.git
 ```sh
 $ git clone git@gitee.com:shuaibiao/newrepo.git myrepo
 ```
-::: tip
+
 上述命令如果 **myrepo** 改为 **newrepo**，两条命令等价。
-:::

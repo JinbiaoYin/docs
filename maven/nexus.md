@@ -35,7 +35,7 @@ docker-compose up -d
 docker ps
 ```
 
-::: tip
+
 
 如果启动报错无权限，需要赋予数据卷的权限
 ```
@@ -46,7 +46,7 @@ chmod 777 data/
 
 打开http://ip:port/，登录名为 admin ,密码根据提示查找，我这里密码文件在 `/usr/local/docker/nexus/data/admin.password`,输入用户名密码即可登录。
 登录后重设密码。
-:::
+
 
   
 ## 配置使用
@@ -82,9 +82,9 @@ repositories是私服maven仓库，pluginRepositories是插件仓库，maven-pub
     </pluginRepository>  
 </pluginRepositories>
 ``` 
-::: tip
+
 url 避免写错，在部署好的nexus服务上可以直接拷贝。
-:::
+
 
 
 ## 上传到私服

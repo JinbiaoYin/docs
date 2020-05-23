@@ -9,11 +9,11 @@
 - Object    对象
 - Array 数组
 
-::: tip
+
 var s1;//当定义了变量，但是没有给变量赋值，那么该值的数据类型就是 undefined 类型。
 var s1 = null;//表示变量值为空，该变量在内存中是不存在的。真正的空。这时s1的数据类型变为Object。
 `null` 和 `undefined` 有最大的相似性。看看 null == undefined 的结果为 `true` 也就更加能说明这点。但是 `null ===undefined` 的结果为 `false`。不过相似归相似，还是有区别的，就是和数字运算时，10 + null结果为：10；10 + undefined结果为：NaN。任何数据类型和undefined运算都是NaN;任何值和null运算，null可看做0运算。
-:::
+
 
 ## Date 对象常用方法
 ```js

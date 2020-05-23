@@ -28,11 +28,6 @@ title: 下载
 - [7-zip](https://www.7-zip.org/)
 - [xmp](https://gitee.com/shuaibiao/software/blob/master/XMP.zip)
 
-::: tip
-`Typora`是个 Markdown 编辑文档。
-`uTools`是个工具集。下载它之后在市场里找到需要的插件安装，例如**程序员手册**。
-:::
-
 ## 关于软件版本号的解释
 
 ### 常用版本号

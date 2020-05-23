@@ -79,23 +79,23 @@ Docker CE 每月发布一个 Edge 版本 (17.03, 17.04, 17.05...)，每三个月
 ```sh
 curl -fsSL get.docker.com -o get-docker.sh
 ```
-::: tip
+
 `curl` 实际是发送http请求的意思，即到get.docker.com中下载 docker 自动安装的 shell 脚本。
-:::
+
 ```sh
 sudo sh get-docker.sh --mirror Aliyun
 ```
-::: tip
+
 意思是将 shell 脚本中的 mirror 改为 Aliyun，并执行此脚本。然后等待下载，自动安装完成。
-:::
+
 
 **测试是否安装成功：**
 ```sh
 docker version
 ```
-::: tip
+
 查看docker版本，API version：1.2为里程碑版本，写这篇笔记时，安装的是1.40版本。
-:::
+
 
 ### 配置镜像加速器
 鉴于国内网络问题，后续拉取 Docker 镜像十分缓慢，强烈建议安装 Docker 之后配置 国内镜像加速。
@@ -118,9 +118,9 @@ vi daemon.json
 systemctl restart docker
 ```
 
-::: tip
+
 成功安装后，继续安装 Docker Compose
-:::
+
 
 ## Docker 安装 redis
 安装完docker之后就可以使用 docker 命令。
@@ -132,11 +132,11 @@ docker pull redis
 ```sh
 docker run -d -p 6379:6379 --name redis -v $PWD/data:/data redis --requirepass "123456" --appendonly yes
 ```
-::: tip
+
 -d 后台运行
 -p 6379:6379 指定[主机端口]:[容器端口]
 -v [主机路径]:[容器路径] 指定数据映射
-:::
+
 
 
 ## 参考资料
