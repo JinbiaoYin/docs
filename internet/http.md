@@ -1,5 +1,5 @@
 ---
-title: http 协议
+title: Content-Type的几种不同类型
 ---
 
 ## Content-Type

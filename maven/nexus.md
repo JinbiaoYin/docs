@@ -1,5 +1,5 @@
 ---
-title: 搭建 Maven Nexus 私服
+title: Maven搭建私服
 ---
 
 ## 安装

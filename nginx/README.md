@@ -1,5 +1,5 @@
 ---
-title: 首页
+title: Nginx的简单实用
 ---
 
 ## 介绍
