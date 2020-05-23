@@ -20,7 +20,7 @@
   * [第15章 泛型](book/tij/15.md)
 * [阿里巴巴编码规范](book/alibaba/README.md)
   * [编程规约](book/alibaba/1.md)
-* [MySQL必知必会](mysqlbzbh.md)
+* [MySQL必知必会](book/mysqlbzbh.md)
 * [高性能MySQL]()
   * [第1章 MySQL架构与历史](book/hpmysql/1.md)
   * [第2章 MySQL基准测试](book/hpmysql/2.md)
