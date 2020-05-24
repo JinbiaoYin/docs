@@ -82,6 +82,7 @@
   * [mysql索引](work/mysqlindex.md)  
   * [视频监控开发](work/video.md)  
 * [Git]()
+  * [Git介绍](git/jieshao.md)
   * [Git的安装与配置](git/config.md)
   * [Git创建仓库](git/repo.md)  
   * [Git基本使用](git/base.md)
