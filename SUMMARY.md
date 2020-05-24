@@ -68,6 +68,7 @@
   * [Nginx使用](nginx/README.md)
 * [乱七八糟的记录]()
   * [域名备案](others/icp.md)
+  * [版本](others/banben.md)
 * [Redis]()
   * [Redis介绍](redis/jieshao.md)  
   * [Redis的类型](redis/use.md)  
