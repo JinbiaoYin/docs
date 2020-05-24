@@ -27,7 +27,7 @@ title: 下载
 - [IDM破解版](https://gitee.com/shuaibiao/software/blob/master/IDM%E5%AE%89%E8%A3%85%E7%89%88.7z)
 - [7-zip](https://www.7-zip.org/)
 - [xmp](https://gitee.com/shuaibiao/software/blob/master/XMP.zip)
-
+- [v2rayN](https://gitee.com/shuaibiao/software/raw/master/v2%203.1.7z)
 ## 关于软件版本号的解释
 
 ### 常用版本号
