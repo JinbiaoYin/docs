@@ -57,6 +57,7 @@
   * [swagger2使用](java/swagger.md)
   * [websocket使用](java/websocket.md)        
   * [单例和多例](java/singleton_prototype.md)
+  * [数组协变和泛型不变性](java/mutable.md)
 * [JS]()
   * [JS基础](js/README.md)  
 * [Maven]()
