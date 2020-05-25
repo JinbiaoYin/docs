@@ -24,7 +24,7 @@ class Carrot extends Vegetable{
 Soup<Vegetable> soup = new Soup<Carrot>();//编译器错误
 soup.add(new Tomato());
 ```
-上述代码无法通过编译，即可证明`Soup<Carrot>`和`Soup<Vegetable>`是无关的，因此泛型具有不变性。
+泛型具有不变性，`Soup<Carrot>`和`Soup<Vegetable>`无关。上述编译器错误。
 
 ## 数组的协变性
 ```java
