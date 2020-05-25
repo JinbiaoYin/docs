@@ -56,6 +56,7 @@
   * [spring-security-oauth2使用](java/spring-security-oauth2.md)    
   * [swagger2使用](java/swagger.md)
   * [websocket使用](java/websocket.md)        
+  * [单例和多例](java/singleton_prototype.md)
 * [JS]()
   * [JS基础](js/README.md)  
 * [Maven]()
