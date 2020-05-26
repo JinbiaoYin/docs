@@ -94,4 +94,4 @@
   * [Git标签](git/tag.md)    
   * [Github](git/github.md)     
 * [数据结构]()
-  * [树和叉树](datastructure/tree.md)  
+  * [树和二叉树](datastructure/tree.md)  
