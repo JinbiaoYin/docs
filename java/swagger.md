@@ -75,7 +75,7 @@ public class Swagger2Config {
 
 Application 中加上注解 `@EnableSwagger2` 表示开启 Swagger
 
-```java {11}
+```java{11}
 package top.yinjinbiao;
 
 import org.springframework.boot.SpringApplication;
