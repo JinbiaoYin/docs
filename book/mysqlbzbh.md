@@ -593,7 +593,7 @@ REVOKE SELECT ON webframe.* FROM test;
 SHOW GRANTS FOR test;
 ```
 
-权限对应表 
+![权限对应表](https://blog.yinjinbiao.top/database/mysql/mysql_grant.jpg)
 
 #### 28.2.4 更改口令
 
