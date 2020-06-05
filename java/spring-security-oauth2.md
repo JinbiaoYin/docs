@@ -566,6 +566,85 @@ spring:
     }
 ```
 
+## 接入前端请求token弹出对话框
+上述在postman请求后，都正常返回token，但是在前端请求，由浏览器发出post请求并携带参数:
+```java
+* grant_type
+* username
+* password
+* client_id
+* client_secret
+```
+时，经弹出对话框，再次让输入用户名和密码。
+
+1. 尝试输入用户名密码后无效
+2. 尝试输入client_id和client_secret后，再次登录，成功。
+
+可以发现是安全策略导致的，后端不接收由post请求直接发出的client_id和client_secret，而是想采用basic auth的方式。我们在后端设置`allowFormAuthenticationForClients`为`true`，允许表达认证client后，成功解决。具体方法为，在`AuthorizationServerConfiguration`认证服务器中，重写以下方法。
+```java
+@Override
+public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {		
+    security.allowFormAuthenticationForClients().tokenKeyAccess("permitAll()").checkTokenAccess("permitAll()").allowFormAuthenticationForClients();
+}
+```
+
+## Oauth2请求token报错invalid_grant
+
+使用 Oauth2 使用密码模式请求 `/oauth/token` 时，返回结果为:
+```json
+{
+    "error": "invalid_grant",
+    "error_description": "Bad credentials"
+}
+```
+查找原因是否是数据库中`oauth_client_details`表中的`client_secret`没加密，又尝试了重新使用`BCryptPasswordEncoder`加密了下，结果还是报错。
+
+结果是密码输错了。。密码是123456，我输入了123。。。
+
+## oauth2下不同服务的client是否相同
+
+首先oauth2的client完全是存储在`oauth_client_details`表中的。如果想注册新的服务到Oauth2的认证中心，那么必须将该服务的client添加到这张表中。具体字段含义可见Oauth2章节。
+```yml
+security:
+  oauth2:
+    client:
+      client-id: orderclient
+      client-secret: secret
+      access-token-uri: http://localhost:8080/oauth/token
+      user-authorization-uri: http://localhost:8080/oauth/authorize
+    resource:
+      token-info-uri: http://localhost:8080/oauth/check_token 
+```
+如上述，添加了订单服务，它的 client_id 和 client_secret 必须和数据库中的对应。如不对应，则生成的token无法验证。
+
+假设又添加了用户服务，它的 client_id 和 client_secret 如下：
+```yml
+security:
+  oauth2:
+    client:
+      client-id: userclient
+      client-secret: secret
+      access-token-uri: http://localhost:8080/oauth/token
+      user-authorization-uri: http://localhost:8080/oauth/authorize
+    resource:
+      token-info-uri: http://localhost:8080/oauth/check_token 
+```
+
+现在`oauth_client_details`中有两条记录。我们用用户服务的client和secret去认证中心请求token：
+```json
+{
+    "access_token": "4d993a02-3556-42ee-9dca-94e625f429e1",
+    "token_type": "bearer",
+    "expires_in": 43199,
+    "scope": "read write"
+}
+```
+
+然后用该token去请求订单服务，结果成功返回数据。
+
+因此，得出结论，只要微服务中配置的client和secret和数据库中的相对应，那么就可以通过token的检查。所以说，服务下的client_id是不同的，随便用哪一个服务去获取token，它在全局都是可用的。
+
+
 ## 参考资料
 - [GitHub,Mybatis版本](https://github.com/JinbiaoYin/video)
 - [Gitee,BeetlSQL版本](https://gitee.com/shuaibiao/springboot-springsecurity-oauth2)

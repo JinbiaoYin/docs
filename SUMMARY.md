@@ -59,8 +59,6 @@
   * [websocket使用](java/websocket.md)        
   * [单例和多例](java/singleton_prototype.md)
   * [数组协变和泛型不变性](java/mutable.md)
-  * [Oauth2报错invalid_grant](java/oauth2_invalid_grant.md)
-  * [Oauth2做单点登录client是否不同](java/oauth2_client.md)
   * [并发编程](java/concurrent.md)
   * [注解的继承](java/RBAC.md)
 * [JS]()
