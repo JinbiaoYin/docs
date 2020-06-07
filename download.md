@@ -10,11 +10,12 @@ title: 下载
 我的开发工具和必须要装的软件有很多，包括为
 
 - [JDK](https://www.oracle.com/java/technologies/javase-downloads.html)
-- Eclipse(百度云盘)
-- [Maven](https://maven.apache.org/download.cgi#)
-- [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows) `破解教程见参考资料`,(lombok/[MybatisCodeHelper](https://gitee.com/shuaibiao/software/blob/master/MybatisCodeHelperNew-2.7.8-191-193.zip))
-- [MySQL](https://downloads.mysql.com/archives/community/)
+- [Eclipse](https://www.baidu.com/link?url=1YzjJUj6W_eRCzyPXbQ-Zljjja15lDkAmPdnQx3F6LkI7e0vIAs_qjY-n62IdWtE&wd=&eqid=ff8116bd00081e29000000065edb8e74)
 - [Navicat Premium](https://www.navicat.com.cn/download/navicat-premium),[Navicat Premium破解版](https://gitee.com/shuaibiao/software/blob/master/navicat%2011.2%20%E9%99%84%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7.rar)
+- [lombok](https://www.projectlombok.org/download)
+- [Maven](https://maven.apache.org/download.cgi#)
+- [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows) `破解教程见参考资料`,([MybatisCodeHelper](https://gitee.com/shuaibiao/software/blob/master/MybatisCodeHelperNew-2.7.8-191-193.zip))
+- [MySQL](https://downloads.mysql.com/archives/community/)
 - [Google Chrome](https://www.google.cn/intl/zh-CN/chrome/)
 - [Tim](https://tim.qq.com/)
 - [Git](https://git-scm.com/)
@@ -26,7 +27,7 @@ title: 下载
 - [uTools](https://www.u.tools/)
 - [IDM破解版](https://gitee.com/shuaibiao/software/blob/master/IDM%E5%AE%89%E8%A3%85%E7%89%88.7z)
 - [7-zip](https://www.7-zip.org/)
-- [xmp](https://gitee.com/shuaibiao/software/blob/master/XMP.zip)
+- [迅雷播放器](https://gitee.com/shuaibiao/software/blob/master/XMP.zip)
 - [v2rayN](https://gitee.com/shuaibiao/software/raw/master/v2%203.1.7z)
 
 
