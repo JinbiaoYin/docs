@@ -37,3 +37,11 @@ title: mybatis
 | JdbcType | UNDEFINED      |                 |                     |
 | JdbcType | VARBINARY      |                 |                     |
 | JdbcType | VARCHAR        | VARCHAR         | VARCHAR             |
+
+## resultType和resultMap
+`resultType`指定的是一个pojo对象，只有满足以下条件才能映射成功。
+- sql语句中要查询的列名和pojo的属性名完全一致，否则参数映射不成功，映射不成功的为null。
+- 有全参构造方法，或者是含有查询列的构造方法
+- 必须放在 mybatis.type-aliases-package 包下，否则mybatis找不到
+
+`resultMap`用于比较复杂的sql，可以在mapper.xml自定义映射。
