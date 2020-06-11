@@ -29,8 +29,11 @@ description: 我的 gitbook
 ### Service
 - Service 必须存在一个接口层，以便后期根据不同实现切换，尽管现在只有一个实现。
 - 实现类上加`@Service`。
+- 获取单个对象的方法用 get 做前缀，多个对象用 list 做前缀，获取统计值用 count 做前缀，插入方法用 save/insert 做前缀，删除方法用 remove/delete 做前缀，修改方法用 update 做前缀。
 - 方法上根据需要加`@Transactional`，注意设置`readOnly`属性是否只读(默认为`false`)。当设置`@Transactional(readOnly=true)`，链接会被设置为只读，如果这时候进行修改操作，就会报错并提示链接只读的。如果方法中仅运行了一条SQL，`@Transactional`没必要加。如果存在多行修改的SQL，必须加`@Transactional`。
 
 ### Dao（JPA版本）
+- 获取单个对象的方法用 get 做前缀，多个对象用 list 做前缀，获取统计值用 count 做前缀，插入方法用 save/insert 做前缀，删除方法用 remove/delete 做前缀，修改方法用 update 做前缀。
 - 接口继承`JpaRepositor`和`JpaSpecificationExecutor`，省去书写冗余代码。
+
 
