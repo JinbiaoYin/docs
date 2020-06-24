@@ -19,11 +19,10 @@
 		<link type="text/css" rel="stylesheet" href="three.js/examples/main.css">
 	</head>
 	<body>
+		<button id="btn">点击</button>
 		<script type="module">
 
 			import * as THREE from './three.js/build/three.module.js';
-
-			import { GUI } from './three.js/examples/jsm/libs/dat.gui.module.js';
 			import { OrbitControls } from './three.js/examples/jsm/controls/OrbitControls.js';
  
 
@@ -36,22 +35,41 @@
             renderer.setSize( window.innerWidth, window.innerHeight );
             document.body.appendChild( renderer.domElement );
 			
-			// 自定义 ----------------------------------
+			// ==================================================================
 			var r = 'picture/';
-				var urls = [ r + '1.left.jpg', r + '1.right.jpg',
-							 r + '1.top.jpg', r + '1.bottom.jpg',
-							 r + '1.back.jpg', r + '1.front.jpg' ];
+			var urls = [ r + '1.left.jpg', r + '1.right.jpg',
+							r + '1.top.jpg', r + '1.bottom.jpg',
+							r + '1.back.jpg', r + '1.front.jpg' ];
 
 			var textureCube = new THREE.CubeTextureLoader().load( urls );
 			scene.background = textureCube;
+			textureCube.minFilter = THREE.LinearFilter;
+			// 控制
 			var controls = new OrbitControls( camera, renderer.domElement );
 			controls.minDistance = 500;
 			controls.maxDistance = 2500;
-			controls.autoRotate = true;
+
+			// 设置默认镜头位置
+			camera.target = new THREE.Vector3( 0, 0, 0 );
+			camera.target.x = 0;
+			camera.target.y = 0;
+			camera.target.z = -1000;
+			camera.fov = 250;
+			camera.lookAt( camera.target );
 			// 设置镜头默认位置，如果不设置，移动镜头时，会闪到默认坐标 0，0，0
 			camera.position.set( 0, 0, 1000 );
 			
-			// 自定义 ----------------------------------
+			// 监听点击事件，切换场景
+			document.getElementById("btn").addEventListener("click", function(){
+				var r = 'picture/';
+				var urls = [ r + '2.left.jpg', r + '2.right.jpg',
+								r + '2.top.jpg', r + '2.bottom.jpg',
+								r + '2.back.jpg', r + '2.front.jpg' ];
+										
+				var textureCube = new THREE.CubeTextureLoader().load( urls );
+				scene.background = textureCube;
+			});
+			// ===================================================================
 
 			// 自适应监听
 			window.addEventListener( 'resize', onWindowResize, false );
@@ -66,7 +84,7 @@
 
 			// 渲染场景
 			function animate() {
-                requestAnimationFrame( animate );
+				requestAnimationFrame( animate );
                 renderer.render( scene, camera );
             }
 
