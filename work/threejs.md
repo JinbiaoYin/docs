@@ -25,147 +25,52 @@
 
 			import { GUI } from './three.js/examples/jsm/libs/dat.gui.module.js';
 			import { OrbitControls } from './three.js/examples/jsm/controls/OrbitControls.js';
+ 
 
-			var controls, camera, scene, renderer;
-			var cameraCube, sceneCube;
-			var textureEquirec, textureCube;
-			var cubeMesh, sphereMesh;
-			var sphereMaterial;
-
-			init();
-			animate();
-
-			function init() {
-
-				// 摄像机
-
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
-				camera.position.set( 0, 0, 1000 );
-				cameraCube = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
-
-				// 场景
-
-				scene = new THREE.Scene();
-				sceneCube = new THREE.Scene();
-
-				// Lights
-
-				var ambient = new THREE.AmbientLight( 0xffffff );
-				scene.add( ambient );
-
-				// 文件加载器
-
-				var r = 'picture/';
+			// 场景
+            var scene = new THREE.Scene();
+			// 摄像机
+			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			// 渲染器
+			var renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+			
+			// 自定义 ----------------------------------
+			var r = 'picture/';
 				var urls = [ r + '1.left.jpg', r + '1.right.jpg',
 							 r + '1.top.jpg', r + '1.bottom.jpg',
 							 r + '1.back.jpg', r + '1.front.jpg' ];
 
-				textureCube = new THREE.CubeTextureLoader().load( urls );
-				textureCube.encoding = THREE.sRGBEncoding;
+			var textureCube = new THREE.CubeTextureLoader().load( urls );
+			scene.background = textureCube;
+			var controls = new OrbitControls( camera, renderer.domElement );
+			controls.minDistance = 500;
+			controls.maxDistance = 2500;
+			controls.autoRotate = true;
+			// 设置镜头默认位置，如果不设置，移动镜头时，会闪到默认坐标 0，0，0
+			camera.position.set( 0, 0, 1000 );
+			
+			// 自定义 ----------------------------------
 
-				// Materials
+			// 自适应监听
+			window.addEventListener( 'resize', onWindowResize, false );
 
-				var equirectShader = THREE.ShaderLib[ 'equirect' ];
-
-				var equirectMaterial = new THREE.ShaderMaterial( {
-					uniforms: THREE.UniformsUtils.clone( equirectShader.uniforms ),
-					fragmentShader: equirectShader.fragmentShader,
-					vertexShader: equirectShader.vertexShader,
-					depthWrite: false,
-					side: THREE.BackSide
-				} );
-
-				equirectMaterial.uniforms[ 'tEquirect' ].value = textureEquirec;
-
-				// enable code injection for non-built-in material
-				Object.defineProperty( equirectMaterial, 'map', {
-
-					get: function () {
-
-						return this.uniforms.tEquirect.value;
-
-					}
-
-				} );
-
-				var cubeShader = THREE.ShaderLib[ 'cube' ];
-
-				var cubeMaterial = new THREE.ShaderMaterial( {
-					uniforms: THREE.UniformsUtils.clone( cubeShader.uniforms ),
-					fragmentShader: cubeShader.fragmentShader,
-					vertexShader: cubeShader.vertexShader,
-					depthWrite: false,
-					side: THREE.BackSide
-				} );
-
-				cubeMaterial.envMap = textureCube;
-
-				// Skybox
-
-				cubeMesh = new THREE.Mesh( new THREE.BoxBufferGeometry( 100, 100, 100 ), cubeMaterial );
-				sceneCube.add( cubeMesh );
-
-				//
-
-				var geometry = new THREE.SphereBufferGeometry( 0, 0, 0 );
-				sphereMaterial = new THREE.MeshLambertMaterial( { envMap: textureCube } );
-				sphereMesh = new THREE.Mesh( geometry, sphereMaterial );
-
-				scene.add( sphereMesh );
-
-				//
-
-				renderer = new THREE.WebGLRenderer();
-				renderer.autoClear = false;
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );
-
-				renderer.outputEncoding = THREE.sRGBEncoding;
-
-				// 方向控制
-
-				controls = new OrbitControls( camera, renderer.domElement );
-				controls.minDistance = 500;
-				controls.maxDistance = 2500;
-
-				// 自适应监听
-				window.addEventListener( 'resize', onWindowResize, false );
-
-			}
-
+			
 			// 根据屏幕大小自适应
 			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.aspect = window.innerWidth / window.innerHeight;	
 				camera.updateProjectionMatrix();
-
-				cameraCube.aspect = window.innerWidth / window.innerHeight;
-				cameraCube.updateProjectionMatrix();
-
 				renderer.setSize( window.innerWidth, window.innerHeight );
-
 			}
 
-			//
-
+			// 渲染场景
 			function animate() {
+                requestAnimationFrame( animate );
+                renderer.render( scene, camera );
+            }
 
-				requestAnimationFrame( animate );
-
-				render();
-
-			}
-
-			function render() {
-
-				camera.lookAt( scene.position );
-				cameraCube.rotation.copy( camera.rotation );
-
-				renderer.render( sceneCube, cameraCube );
-				renderer.render( scene, camera );
-
-			}
+			animate();
 
 		</script>
 
