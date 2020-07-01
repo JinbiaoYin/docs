@@ -20,6 +20,7 @@ title: 下载
 - [Tim](https://tim.qq.com/)
 - [Git](https://git-scm.com/)
 - [SVN](https://tortoisesvn.net/downloads.html)
+- [subclipse](https://gitee.com/shuaibiao/software/blob/master/subclipse-4.3.0.zip)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Postman](https://www.postman.com/downloads/)
 - [ShadowsocksR-dotnet4.0](https://gitee.com/shuaibiao/software/blob/master/ssr-win.7z)
