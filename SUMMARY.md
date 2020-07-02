@@ -106,3 +106,5 @@
   * [云顶之奕](game/lol.md)   
 * [初中学科](junior) 
   * [物理](junior/physics.md)   
+* [投资]() 
+  * [基金购买](invest/fund.md)    
