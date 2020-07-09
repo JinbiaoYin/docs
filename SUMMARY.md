@@ -74,6 +74,7 @@
 * [乱七八糟的记录]()
   * [域名备案](others/icp.md)
   * [版本](others/banben.md)
+  * [驾照考试](others/driver.md)
 * [Redis]()
   * [Redis介绍](redis/jieshao.md)  
   * [Redis的类型](redis/use.md)  
