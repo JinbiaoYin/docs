@@ -202,4 +202,76 @@ try_files 的第一个 `$uri` 代表 Nginx 会去硬盘的对应路径寻找文�
 其实就是把nginx当成一个http服务器，将所需要的静态资源放在里面。
 
 
+## nginx配置中的反斜线
+nginx配置中的反斜线加与不加是不一样的。
+
+发送请求：http://localhost:8888/api/signup
+
+```
+location /api {
+	proxy_pass http://localhost:8080/video;
+}
+```
+上述真正收到的请求是`http://localhost:8080/video/signup`。
+
+```
+location /api {
+	proxy_pass http://localhost:8080/video/;
+}
+```
+上述真正收到的请求是`http://localhost:8080/video//signup`。
+
+
+```
+location /api/ {
+	proxy_pass http://localhost:8080/video;
+}
+```
+上述真正收到的请求是`http://localhost:8080/videosignup`。
+
+
+```
+location /api/ {
+	proxy_pass http://localhost:8080/video/;
+}
+```
+上述真正收到的请求是`http://localhost:8080/video/signup`。
+
+
+location 中配置的路径只用于过滤原url，其后的配置才是真正被加到`proxy_pass`后的。
+
+
+如果`proxy_pass`只配置ip:port，例如：
+
+```
+location /api {
+	proxy_pass http://localhost:8080;
+}
+```
+上述真正收到的请求是`http://localhost:8080/api/signup`。
+
+```
+location /api {
+	proxy_pass http://localhost:8080/;
+}
+```
+上述真正收到的请求是`http://localhost:8080//signup`。
+
+
+```
+location /api/ {
+	proxy_pass http://localhost:8080;
+}
+```
+上述真正收到的请求是`http://localhost:8080/api/signup`。
+
+```
+location /api/ {
+	proxy_pass http://localhost:8080/;
+}
+```
+上述真正收到的请求是`http://localhost:8080/signup`。
+
+
 ## 参考资料
+[浅谈nginx反向代理中神奇的斜线](https://www.jb51.net/article/146975.htm)
