@@ -53,8 +53,9 @@ scope：
 - provided
 - runtime
 - test
+- import (解决maven只有单继承的问题)
 
-例如：假如有A,B,C,B依赖A,C依赖B，假如A中存在scope为provide和test的依赖，那么此依赖将不会传递给子模块。
+例如：假如有A,B,C,（C->B->A）假如A中存在scope为provide和test的依赖，那么此依赖将不会传递给子模块。
 runtime传递后还是runtime
 
 
