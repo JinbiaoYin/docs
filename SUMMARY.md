@@ -63,6 +63,7 @@
   * [netty](java/netty.md)
   * [webservice](java/webservice.md)
   * [transaction](java/transaction.md)
+  * [主键生成策略](java/id_generator.md)
 * [JS]()
   * [JS基础](js/README.md)  
 * [Maven]()
