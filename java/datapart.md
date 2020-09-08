@@ -191,5 +191,6 @@ mybatis:
 ````
 
 ## 参考资料
-[GitHub ShardingSphere-JDBC 参考案例](https://github.com/topsale/spring-boot-samples)
+- [Apache ShardingSphere 官方文档](https://shardingsphere.apache.org/document/current/cn/overview/#shardingsphere-jdbc)
+- [GitHub ShardingSphere-JDBC 参考案例](https://github.com/topsale/spring-boot-samples)
 
