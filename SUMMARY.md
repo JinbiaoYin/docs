@@ -64,6 +64,7 @@
   * [webservice](java/webservice.md)
   * [transaction](java/transaction.md)
   * [主键生成策略](java/id_generator.md)
+  * [分库分表](java/datapart.md)
 * [JS]()
   * [JS基础](js/README.md)  
 * [Maven]()
