@@ -10,6 +10,84 @@
 
 - 水平拆分：把同一张表的数据拆分到不同数据库中进行存储，或者把一张表拆分成 n 多张小表。按照数据行的拆分。
 
+> 垂直分片可以缓解数据量和访问量带来的问题，但无法根治。如果垂直拆分之后，表中的数据量依然超过单节点所能承载的阈值，则需要水平分片来进一步处理。
+
+> 水平分片又称为横向拆分。它不再将数据根据业务逻辑分类，而是通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。水平分片从理论上突破了单机数据量处理的瓶颈，并且扩展相对自由，是分库分表的标准解决方案。
+
+## 主从复制
+主从复制一般是为了解决数据库单点故障，和读写分离的一种有效的解决方案。MySQL 本身就支持主从复制，它是通过`binlog`日志来实现的。
+
+从库生成两个线程，一个I/O线程，一个SQL线程；i/o线程去请求主库的binlog，并将得到的binlog日志写到relay log（中继日志） 文件中；主库会生成一个 log dump 线程，用来给从库 i/o线程传binlog；SQL 线程，会读取relay log文件中的日志，并解析成具体操作，来实现主从的操作一致，而最终数据一致；
+
+具体做法如下：通过 MySQL 中对主节点和从节点的配置，并在从节点中指定主节点的信息即可。
+
+> 主服务器的 my.ini
+
+```
+[mysqld]
+# 开启日志
+log-bin = mysql-bin
+binlog_format=ROW
+# 设置服务id，主从不能一致
+server-id = 1
+# 设置需要同步的数据库
+binlog-do-db = barcode
+# 屏蔽系统库同步
+binlog-ignore-db=mysql
+binlog-ignore-db=information_schema
+binlog-ignore-db=performance_schema
+```
+
+> 从库 my.ini
+
+```
+[mysqld]
+# 开启日志
+log-bin = mysql-bin
+binlog_format=ROW
+# 设置服务id，主从不能一致
+server-id = 2
+# 设置需要同步的数据库
+replicate_wild_do_table=barcode.%
+# 屏蔽系统库同步
+replicate_wild_ignore_table=mysql.%
+replicate_wild_ignore_table=information_schema.%
+replicate_wild_ignore_table=performance_schema.%
+```
+
+重启服务。主从复制需要主库下创建一个专用账号，它具有主从复制权限。
+```
+# 授权主备复制专用账号
+GRANT REPLICATION SLAVE ON *.* TO 'db_sync'@'%' IDENTIFIED BY 'db_sync';
+# 刷新权限
+FLUSH PRIVILEGES;
+# 确认位点，记录下文件名以及位点
+show master status;
+```
+
+从库下，需要配置主库的地址信息。
+```
+# 先停止同步
+STOP SLAVE;
+
+# 修改从库指向到主库，使用上一步记录的文件名以及位点
+CHANGE MASTER TO
+master_host = '192.168.3.187',
+master_user = 'db_sync',
+master_password = 'db_sync',
+master_log_file = 'mysql-bin.000002',
+master_log_pos = 154;
+
+# 启动同步
+START SLAVE;
+
+# 查看从库状态`Slave_IO_Runing`和`Slave_SQL_Runing`都为 Yes 说明同步成功，如果不为 Yes，请检查 error_log，然后排查相关异常。
+show slave status;
+
+# 注意：如果之前此从库已有主库指向，需要先清空
+STOP SLAVE IO_THREAD FOR CHANNEL '';
+reset slave all;
+```
 
 ## Apache Shardingsphere
 Apache ShardingSphere 是一套开源的分布式数据库中间件解决方案组成的生态圈，它由 JDBC、Proxy 和 Sidecar（规划中）这 3 款相互独立，却又能够混合部署配合使用的产品组成。 它们均提供标准化的数据分片、分布式事务和数据库治理功能，可适用于如 Java 同构、异构语言、云原生等各种多样化的应用场景。
