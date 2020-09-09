@@ -92,6 +92,13 @@ reset slave all;
 ## Apache Shardingsphere
 Apache ShardingSphere 是一套开源的分布式数据库中间件解决方案组成的生态圈，它由 JDBC、Proxy 和 Sidecar（规划中）这 3 款相互独立，却又能够混合部署配合使用的产品组成。 它们均提供标准化的数据分片、分布式事务和数据库治理功能，可适用于如 Java 同构、异构语言、云原生等各种多样化的应用场景。
 
+### 公共表
+分库中为了避免跨库 join，一般采用公共表的形式，例如数据字典表等。
+
+这种情况下，我们在每个库中都创建这样一张表。
+
+通过在 `application.yml` 配置公共表名即可。
+
 ### ShardingSphere-JDBC
 采用的是增强JDBC的方式，SJDBC同时连接多个数据源，根据配置对逻辑SQL解析处理产生实际SQL语句。有逻辑表和物理表的概念，写代码时，还是跟从前一样，要针对逻辑表来写SQL语句，SJDBC会将它解析成实际的多个分表SQL，到相应的物理库和物理表中执行并存储。
 
@@ -234,6 +241,8 @@ spring:
           connection-test-query: SELECT 1
 # 数据分片规则配置
     sharding:
+# 配置公共表    
+      broadcast-tables: sys_dic
 # 需要分片的逻辑表名称
       binding-tables: biz_user
 # 设置分库策略
