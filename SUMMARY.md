@@ -28,6 +28,7 @@
   * [第3章 服务器性能剖析](book/hpmysql/3.md)
 * [MySQL]()
   * [MySQL压缩版安装](mysql/install.md)  
+  * [InnoDB](java/InnoDB.md)
 * [Oracle]()
   * [第1章](oracle/install.md)
 * [Go]()

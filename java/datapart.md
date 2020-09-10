@@ -15,7 +15,7 @@
 > 水平分片又称为横向拆分。它不再将数据根据业务逻辑分类，而是通过某个字段（或某几个字段），根据某种规则将数据分散至多个库或表中，每个分片仅包含数据的一部分。水平分片从理论上突破了单机数据量处理的瓶颈，并且扩展相对自由，是分库分表的标准解决方案。
 
 ## 主从复制
-主从复制一般是为了解决数据库单点故障，和读写分离的一种有效的解决方案。MySQL 本身就支持主从复制，它是通过`binlog`日志来实现的。
+主从复制一般是为了解决数据库单点故障的一种有效的解决方案，也是实现读写分离的前提。MySQL 本身就支持主从复制，它是通过`binlog`日志来实现的。
 
 从库生成两个线程，一个I/O线程，一个SQL线程；i/o线程去请求主库的binlog，并将得到的binlog日志写到relay log（中继日志） 文件中；主库会生成一个 log dump 线程，用来给从库 i/o线程传binlog；SQL 线程，会读取relay log文件中的日志，并解析成具体操作，来实现主从的操作一致，而最终数据一致；
 
@@ -85,8 +85,8 @@ START SLAVE;
 show slave status;
 
 # 注意：如果之前此从库已有主库指向，需要先清空
-STOP SLAVE IO_THREAD FOR CHANNEL '';
-reset slave all;
+# STOP SLAVE IO_THREAD FOR CHANNEL '';
+# reset slave all;
 ```
 
 ## Apache Shardingsphere
@@ -102,7 +102,7 @@ Apache ShardingSphere 是一套开源的分布式数据库中间件解决方案�
 ### ShardingSphere-JDBC
 采用的是增强JDBC的方式，SJDBC同时连接多个数据源，根据配置对逻辑SQL解析处理产生实际SQL语句。有逻辑表和物理表的概念，写代码时，还是跟从前一样，要针对逻辑表来写SQL语句，SJDBC会将它解析成实际的多个分表SQL，到相应的物理库和物理表中执行并存储。
 
-这种方式的主要工作在于`配置多数据源`和`配置分片规则`。其中配置规则采用的是`groovy`的语法，这里要注意。
+这种方式的主要工作在于`配置多数据源`和`配置分片规则`。
 
 > 下面给出了示例，是根据参考DEMO改写的。下面的分片规则是：十位数确定库，个位数确定表。其中十位数为偶数到 ds0 库，奇数到 ds1 库。个位数为偶数到 0 表，奇数到 1 表。麻烦的点在于这个分片规则，需要去熟悉 groovy 语法。
 
@@ -227,7 +227,7 @@ spring:
       ds1:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        jdbc-url: jdbc:mysql://192.168.3.53:3306/barcode_1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        jdbc-url: jdbc:mysql://localhost:3306/barcode_1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
         username: root
         password: '123456'
         hikari:
@@ -240,8 +240,8 @@ spring:
           connection-timeout: 30000
           connection-test-query: SELECT 1
 # 数据分片规则配置
-    sharding:
-# 配置公共表    
+    sharding: 
+    # 配置公共表    
       broadcast-tables: sys_dic
 # 需要分片的逻辑表名称
       binding-tables: biz_user
@@ -276,6 +276,73 @@ mybatis:
   type-aliases-package: com.funtl.apache.shardingsphere.domain
   mapper-locations: classpath:mapper/*.xml
 ````
+
+配置读写分离：
+
+```yml
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: sharding-jdbc
+  shardingsphere:
+    props:
+      sql:
+        show: true
+# 数据源配置
+    datasource:
+      names: m0,s0
+      m0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/study?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        username: root
+        password: '123456'
+        hikari:
+          minimum-idle: 5
+          idle-timeout: 600000
+          maximum-pool-size: 10
+          auto-commit: true
+          pool-name: MyHikariCP
+          max-lifetime: 1800000
+          connection-timeout: 30000
+          connection-test-query: SELECT 1
+      s0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3307/study?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        username: root
+        password: '123456'
+        hikari:
+          minimum-idle: 5
+          idle-timeout: 600000
+          maximum-pool-size: 10
+          auto-commit: true
+          pool-name: MyHikariCP
+          max-lifetime: 1800000
+          connection-timeout: 30000
+          connection-test-query: SELECT 1
+    rules:
+      dataSources:
+        m0: # 读写分离逻辑数据源名称
+          masterDataSourceName: # 主库数据源名称
+          slaveDataSourceNames: 
+            - s0
+# 数据分片规则配置
+    sharding: 
+# 设置分表策略
+      tables:
+# 可配置多个
+        sys_user:
+          actual-data-nodes: m0.sys_user
+mybatis:
+  type-aliases-package: com.funtl.apache.shardingsphere.domain
+  mapper-locations: classpath:mapper/*.xml
+```
+
+
+### Sharding-Proxy
+
 
 ## 参考资料
 - [Apache ShardingSphere 官方文档](https://shardingsphere.apache.org/document/current/cn/overview/#shardingsphere-jdbc)
