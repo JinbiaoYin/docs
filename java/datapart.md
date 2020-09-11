@@ -31,7 +31,8 @@ binlog_format=ROW
 # 设置服务id，主从不能一致
 server-id = 1
 # 设置需要同步的数据库
-binlog-do-db = barcode
+binlog-do-db = ds0
+binlog-do-db = ds1
 # 屏蔽系统库同步
 binlog-ignore-db=mysql
 binlog-ignore-db=information_schema
@@ -48,7 +49,8 @@ binlog_format=ROW
 # 设置服务id，主从不能一致
 server-id = 2
 # 设置需要同步的数据库
-replicate_wild_do_table=barcode.%
+replicate_wild_do_table=ds0.%
+replicate_wild_do_table=ds1.%
 # 屏蔽系统库同步
 replicate_wild_ignore_table=mysql.%
 replicate_wild_ignore_table=information_schema.%
@@ -72,10 +74,10 @@ STOP SLAVE;
 
 # 修改从库指向到主库，使用上一步记录的文件名以及位点
 CHANGE MASTER TO
-master_host = '192.168.3.187',
+master_host = 'localhost',
 master_user = 'db_sync',
 master_password = 'db_sync',
-master_log_file = 'mysql-bin.000002',
+master_log_file = 'mysql-bin.000003',
 master_log_pos = 154;
 
 # 启动同步
