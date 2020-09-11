@@ -252,7 +252,7 @@ spring:
 # 此处根据 id 分片
 # 如果 id 的倒数第二位 为偶数则落入偶数库即 ds0 匹配的数据源
 # 如果 id 的倒数第一位 为奇数则落入奇数库即 ds1 匹配的数据源
-          algorithm-expression: ds$->{ (((id-id%10)/2) as int) % 2}
+          algorithm-expression: ds$->{ (((id-id%10)/10) as int) % 2}
 # 根据 id 进行分库
           sharding-column: id
 # 设置分表策略
@@ -275,7 +275,7 @@ spring:
 mybatis:
   type-aliases-package: com.funtl.apache.shardingsphere.domain
   mapper-locations: classpath:mapper/*.xml
-````
+```
 
 配置读写分离：
 
@@ -291,8 +291,8 @@ spring:
         show: true
 # 数据源配置
     datasource:
-      names: m0,s0
-      m0:
+      names: dsmaster,dsslave0
+      dsmaster:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
         jdbc-url: jdbc:mysql://localhost:3306/study?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
@@ -307,7 +307,7 @@ spring:
           max-lifetime: 1800000
           connection-timeout: 30000
           connection-test-query: SELECT 1
-      s0:
+      dsslave0:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
         jdbc-url: jdbc:mysql://localhost:3307/study?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
@@ -322,19 +322,13 @@ spring:
           max-lifetime: 1800000
           connection-timeout: 30000
           connection-test-query: SELECT 1
-    rules:
-      dataSources:
-        m0: # 读写分离逻辑数据源名称
-          masterDataSourceName: # 主库数据源名称
-          slaveDataSourceNames: 
-            - s0
-# 数据分片规则配置
-    sharding: 
-# 设置分表策略
-      tables:
-# 可配置多个
-        sys_user:
-          actual-data-nodes: m0.sys_user
+
+    masterslave:
+      name: health_ms
+      master-data-source-name: dsmaster
+      slave-data-source-names: dsslave0,dsslave1
+      load-balance-algorithm-type: random
+
 mybatis:
   type-aliases-package: com.funtl.apache.shardingsphere.domain
   mapper-locations: classpath:mapper/*.xml
