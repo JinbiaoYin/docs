@@ -87,7 +87,7 @@ START SLAVE;
 show slave status;
 
 # 注意：如果之前此从库已有主库指向，需要先清空
-# STOP SLAVE IO_THREAD FOR CHANNEL '';
+# STOP SLAVE;
 # reset slave all;
 ```
 
@@ -174,7 +174,7 @@ Apache ShardingSphere 是一套开源的分布式数据库中间件解决方案�
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-            <version>4.0.0-RC3</version>
+            <version>4.0.1</version>
         </dependency>
         
         <dependency>
@@ -254,17 +254,17 @@ spring:
 # 此处根据 id 分片
 # 如果 id 的倒数第二位 为偶数则落入偶数库即 ds0 匹配的数据源
 # 如果 id 的倒数第一位 为奇数则落入奇数库即 ds1 匹配的数据源
-          algorithm-expression: ds$->{ (((id-id%10)/10) as int) % 2}
+          algorithm-expression: ds${ (((id-id%10)/10) as int) % 2}
 # 根据 id 进行分库
           sharding-column: id
 # 设置分表策略
       tables:
 # 逻辑表名称
         biz_user:
-          actual-data-nodes: ds$->{0..1}.biz_user_$->{0..1}
+          actual-data-nodes: ds${0..1}.biz_user_${0..1}
           table-strategy:
             inline:
-              algorithm-expression: biz_user_$->{id % 2}
+              algorithm-expression: biz_user_${id % 2}
               sharding-column: id
 # 可配置多个
       #  tb_order_item:
@@ -338,7 +338,15 @@ mybatis:
 
 
 ### Sharding-Proxy
+以中间件的形式，代理所有数据库。
 
+从官网下载最新版 proxy，解压后注意 lib 下 jar 后缀名可能存在问题，补全即可。
+
+修改 conf/server.yaml，放开 `authentication`和`props`配置。
+
+修改 conf/config-sharding.yaml，配置跟 sharding-JDBC 大同小异。
+
+启动 bin/start.bat
 
 ## 参考资料
 - [Apache ShardingSphere 官方文档](https://shardingsphere.apache.org/document/current/cn/overview/#shardingsphere-jdbc)
