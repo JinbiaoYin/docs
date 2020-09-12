@@ -45,39 +45,31 @@ default-character-set=utf8
 
 4. 输入以下命令生成 data 文件夹
 ```
-mysqld --initialize
+mysqld --initialize --console
 ```
+注意生成的临时密码，记住。
 
 5. 输入以下命令安装服务
 ```
-mysqld –-install
+mysqld --install
 ```
 
-
-安装失败是由于没有卸载干净，cmd输入 `sc delete mysql` ，再重新尝试install
+如果安装失败是由于之前的 mysql 没有卸载干净，cmd输入 `sc delete mysql`后删除 data 文件夹 ，再重新尝试。
 
 
 6. 启动服务
 net start mysql
 
-7. 用 Navicat 连接 Mysql ，初始密码为空。新建查询：
+7. cmd 命令行连接 mysql，输入刚刚的临时密码登录。
 
+```
+mysql -u root -p
+```
+
+更改密码
 ```sql
-update mysql.user set authentication_string=password('你想输入的密码') where user='root' and Host ='localhost'; 
-flush privileges;
+alter user 'root'@'localhost' identified by '123456';
 ```
-
-8. 注释my.ini中的skip-grant-tables，前面加#即可。
-
-9. 重启 mysql 服务，使刚刚的配置生效
-
-```
-net stop mysql
-
-net start mysql
-```
-10. 重新打开Navicat，使用设置的密码连接。
-
 
 如果出现密码过期问题，就把 `skip-grant-tables` 重新加上，重启服务。
 用navicat或者cmd窗口连接mysql，将 `user` 表的 `password_expired` 改为 N 就行。
