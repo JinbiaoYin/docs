@@ -21,7 +21,7 @@
 
 具体做法如下：通过 MySQL 中对主节点和从节点的配置，并在从节点中指定主节点的信息即可。
 
-> 主服务器的 my.ini
+> 主服务器的 my.ini，binlog_format 有 ROW,statement,MIXED 三种模式。 
 
 ```
 [mysqld]
@@ -347,6 +347,14 @@ mybatis:
 修改 conf/config-sharding.yaml，配置跟 sharding-JDBC 大同小异。
 
 启动 bin/start.bat
+
+## MyCat
+拦截用户发送的 SQL 语句，对语句做分析，然后路由到真实数据库，再将结果返回给用户。
+
+配置文件：
+- schema.xml 定义逻辑库，表，分片节点等内容。
+- rule.xml 定义分片规则
+- server.xml 定义用户以及系统相关变量，如端口等。
 
 ## 参考资料
 - [Apache ShardingSphere 官方文档](https://shardingsphere.apache.org/document/current/cn/overview/#shardingsphere-jdbc)
