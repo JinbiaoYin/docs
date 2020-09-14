@@ -138,6 +138,47 @@ docker run -d -p 6379:6379 --name redis -v $PWD/data:/data redis --requirepass "
 -v [主机路径]:[容器路径] 指定数据映射
 
 
+## Docker 安装 MySQL
+**拉取redis镜像，如果没指明版本，则自动下载lastest版**
+```sh
+$ docker pull mysql
+```
+
+```sh
+$ docker run -p 3306:3306 --name mysql -v /usr/local/docker/mysql/conf:/etc/mysql -v /usr/local/docker/mysql/logs:/var/log/mysql -v /usr/local/docker/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+```
+
+如果启动不成功，先不指定配置文件的数据卷启动
+```sh
+$ docker run -p 3306:3306 --name mysql -v /usr/local/docker/mysql/logs:/var/log/mysql -v /usr/local/docker/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+```
+
+进入本机配置文件所在地，并拷贝配置文件复制到本地。（进入，返回文件夹没写）
+```sh
+$ cd /usr/local/docker/mysql/conf
+$ docker cp mysql:/etc/mysql .
+$ mv *.* ..
+$ rm -rf mysql
+```
+
+再重新启动
+```sh
+$ docker run -p 3306:3306 --name mysql -v /usr/local/docker/mysql/conf:/etc/mysql -v /usr/local/docker/mysql/logs:/var/log/mysql -v /usr/local/docker/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+```
+
+登录不了，就进入容器，更改密码。
+```
+$ docker exec -it mysql bash
+
+$ mysql -uroot
+
+use mysql;
+update mysql.user set host='%' where user='root';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY'123456';
+flush privileges;
+
+exit
+```
 
 ## 参考资料
 [撸帝-个人博客](https://www.funtl.com/zh/docs-docker/)
