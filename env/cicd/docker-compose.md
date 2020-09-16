@@ -67,7 +67,6 @@ services:
       - "/data"
 ```
 
-
 - `version`: 当前**docker-compose**的版本
 - `services`: 所有的服务
 - `tomcat` : 第一个服务
@@ -75,3 +74,43 @@ services:
 - `image` : 镜像
 - `ports` : 端口映射
 - `volumes` : 指定数据卷
+
+### MySQL
+```
+version: '3.1'
+services:
+  db:
+    image: mysql:8.0.21
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./conf:/etc/mysql
+      - ./logs:/var/log/mysql
+```
+
+### Nexus
+```
+version: '3.1'
+services:
+  nexus:
+    restart: always
+    image: sonatype/nexus3
+    container_name: nexus
+    ports:
+      - 8081:8081
+    volumes:
+      - data:/nexus-data
+
+volumes:
+  data:
+```
