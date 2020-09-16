@@ -340,13 +340,23 @@ mybatis:
 ### Sharding-Proxy
 以中间件的形式，代理所有数据库。
 
-从官网下载最新版 proxy，解压后注意 lib 下 jar 后缀名可能存在问题，补全即可。
+拉取 docker 镜像
+```sh
+$ docker pull apache/sharding-proxy
+```
 
-修改 conf/server.yaml，放开 `authentication`和`props`配置。
+创建数据卷文件夹
+```
+mkdir /usr/local/docker/sharding-proxy/conf
+mkdir /usr/local/docker/sharding-proxy/ext-lib
+```
 
-修改 conf/config-sharding.yaml，配置跟 sharding-JDBC 大同小异。
+将 mysql 驱动拷贝至 ext-lib，将conf下配置文件拷贝至数据卷文件夹，配置后，指定数据卷启动。
+```sh
+docker run -d -v /usr/local/docker/shardingsphere/conf:/opt/sharding-proxy/conf -v /usr/local/docker/shardingsphere/ext-lib:/opt/sharding-proxy/ext-lib -p13308:3308 apache/sharding-proxy:latest
+```
 
-启动 bin/start.bat
+具体配置参考官方文档。
 
 ## MyCat
 拦截用户发送的 SQL 语句，对语句做分析，然后路由到真实数据库，再将结果返回给用户。
