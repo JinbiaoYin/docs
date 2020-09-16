@@ -31,6 +31,7 @@ title: 下载
 - [迅雷播放器](https://gitee.com/shuaibiao/software/blob/master/XMP.zip)
 - [v2rayN](https://gitee.com/shuaibiao/software/raw/master/v2%203.1.7z)
 - [XShell6](https://gitee.com/shuaibiao/software/blob/master/Xshell.exe)
+- [XFtp](https://gitee.com/shuaibiao/software/blob/master/Xftp_5.0.543.exe)
 
 
 ## 参考资料
