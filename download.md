@@ -30,6 +30,7 @@ title: 下载
 - [7-zip](https://www.7-zip.org/)
 - [迅雷播放器](https://gitee.com/shuaibiao/software/blob/master/XMP.zip)
 - [v2rayN](https://gitee.com/shuaibiao/software/raw/master/v2%203.1.7z)
+- [XShell6](https://gitee.com/shuaibiao/software/blob/master/Xshell.exe)
 
 
 ## 参考资料
@@ -37,6 +38,7 @@ title: 下载
 2. [MySQL 安装教程](/database/mysql/install)
 3. [Maven Settings 配置私服](/tools/maven/config)
 4. [Git国内镜像](https://npm.taobao.org/mirrors/git-for-windows/);官网下载速度慢可用这个。
+5. [XShell6破解教程](https://www.cnblogs.com/gxp69/p/11777746.html)
 
 
 ## 我的开发规范
