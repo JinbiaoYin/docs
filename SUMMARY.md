@@ -59,6 +59,8 @@
     * [setings.xml配置说明](env/maven/settings.md)    
   * [Nginx]()
     * [Nginx使用](env/nginx/README.md)  
+  * [Linux]()
+    * [Linux](env/linux/basic.md)  
   * [CI/CD]()
     * [docker](env/cicd/docker.md)
     * [docker-compose](env/cicd/docker-compose.md) 
