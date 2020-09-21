@@ -47,10 +47,6 @@ Spring Security 是一个安全框架，前身是 Acegi Security，能够为 Spr
 ### 授权码模式
 授权码模式适用于有自己的服务器的应用，它是一个一次性的临时凭证，用来换取 `access_token` 和 `refresh_token`。认证服务器提供了一个类似这样的接口：
 
-```
-https://www.funtl.com/exchange?code=&client_id=&client_secret=
-```
-
 1. 客户端请求第三方授权
 2. 用户（资源拥有者）同意给客户端授权
 3. 客户端获取到授权码，请求认证服务器申请令牌
@@ -58,7 +54,7 @@ https://www.funtl.com/exchange?code=&client_id=&client_secret=
 5. 客户端请求资源服务器的资源
 6. 资源服务器返回受保护资源
 
-需要传入 `code`、`client_id` 以及 `client_secret`。验证通过后，返回 `access_token` 和 `refresh_token`。一旦换取成功，`code` 立即作废，不能再使用第二次。
+我们需要先拿到授权码，然后需要传入 `code`、`client_id` 以及 `client_secret`。验证通过后，返回 `access_token` 和 `refresh_token`。一旦换取成功，`code` 立即作废，不能再使用第二次。
 
 这个 `code` 的作用是保护 `token` 的安全性。简单模式下，`token` 是不安全的。这是因为直接把 token 返回给应用容易被拦截、窃听。引入了 `code` 之后，即使攻击者能够窃取到 `code`，但是由于他无法获得应用保存在服务器的 `client_secret`，因此也无法通过 `code` 换取 `token`。为什么不容易被拦截、窃听呢？这是因为，首先，这是一个从服务器到服务器的访问，黑客比较难捕捉到；其次，这个请求通常要求是 https 的实现。即使能窃听到数据包也无法解析出内容。
 
@@ -107,15 +103,6 @@ http://blog.yinjinbiao.top/refresh?refresh_token=&client_id=&client_secret=
 
 以上就是 `Refresh Token` 机制。`Refresh Token` 的有效期非常长，会在用户授权时，随 `Access Token` 一起重定向到回调 URL，传递给客户端。
 
-## 说明
-
-本篇示例为 **授权码模式** 的示例
-
-环境：
-- spring-boot-starter-parent 2.2.5.RELEASE
-- spring-security-oauth2-autoconfigure 2.2.5.RELEASE
-- MySQL 8.0.16
-- MyBatis
 
 ## OAuth2 表结构
 
@@ -487,19 +474,21 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
 ### 授权码访问
 
-获取授权码:
+`authorized_grant_types`必须配置为`authorization_code`。
+
+浏览器输入以下地址，进入登录页面，输入用户名密码后，进入授权。
 ```
 http://localhost:8080/oauth/authorize?client_id=client&response_type=code
 ```
 
-输入登录名密码后跳转到
+输入登录名密码后，会跳转到该`client_id`对应的`web_server_redirect_uri`下。例如配置的`www.qq.com`，授权成功后会将`code`拼接到地址后面。
 ```
-https://blog.yinjinbiao.top/?code=eMr2Cy
+https://www.qq.com/?code=FjNZLs
 ```
 
 根据授权码 code 获取 token:
 ```
-http://localhost:8080/oauth/token?client_id=client&client_secret=secret&grant_type=authorization_code&code=eMr2Cy
+http://localhost:8080/oauth/token?client_id=client&client_secret=secret&grant_type=authorization_code&code=FjNZLs
 ```
 
 ### 密码模式访问
