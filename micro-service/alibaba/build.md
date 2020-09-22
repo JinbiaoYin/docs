@@ -627,6 +627,10 @@ spring.cloud.nacos.config.file-extension=yaml
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
         <!-- Spring Cloud End -->
     </dependencies>
 
@@ -653,9 +657,16 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-
+  sentinel:
+    transport:
+      dashboard: localhost:8888
+      
 server:
   port: 8080
+
+feign:
+  sentinel:
+    enabled: true  
 
 management:
   endpoints:

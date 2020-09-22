@@ -26,7 +26,9 @@ docker-compose -f example/standalone-mysql-8.yaml up
 docker-compose -f example/cluster-hostname.yaml up 
 ```
 
-启动完成后，访问`http://ip:port/nacos`，默认用户名密码 `nacos/nacos`
+启动完成后，访问`http://ip:8848/nacos`，默认用户名密码 `nacos/nacos`
+
+**注意：nacos访问日志已指定数据卷在当前目录的`standalone-logs/start.out`中，如启动无法方法，根据日志进行操作。**
 
 ## 服务注册与发现
 在服务的 `application.yml` ，加入配置：
@@ -118,3 +120,25 @@ spring.cloud.nacos.config.server-addr=127.0.0.1:8848
 spring.cloud.nacos.config.file-extension=yaml
 ```
 **注意：配置优先级顺序为 bootstrap.properties -> bootstrap.yml -> application.properties -> application.yml**
+
+### 多环境配置
+我们在做项目开发的时候，生产环境和测试环境的一些配置可能会不一样，有时候一些功能也可能会不一样，所以我们可能会在上线的时候手工修改这些配置信息。但是 Spring 中为我们提供了 Profile 这个功能。我们只需要在启动的时候添加一个虚拟机参数，激活自己环境所要用的 Profile 就可以了。
+
+#### 在 Nacos Server 中增加配置
+增加一个名为 `nacos-provider-config-prod.yaml` 的配置
+
+
+#### 在项目中增加配置
+增加一个名为 `bootstrap-prod.properties` 的配置文件，内容如下：
+```properties
+spring.profiles.active=prod
+spring.application.name=nacos-provider-config
+spring.cloud.nacos.config.file-extension=yaml
+spring.cloud.nacos.config.server-addr=127.0.0.1:8848
+```
+主要增加了 `spring.profiles.active=prod` 配置，用于指定访问 `Nacos Server` 中的 `nacos-provider-config-prod.yaml` 配置
+
+#### 使用命令发布
+```sh
+java -jar hello-spring-cloud-alibaba-nacos-provider-1.0.0-SNAPSHOT.jar --spring.profiles.active=prod
+```
