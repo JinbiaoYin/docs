@@ -3,24 +3,21 @@
 ## 创建统一的依赖管理
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.6.RELEASE</version>
+        <version>2.3.3.RELEASE</version>
     </parent>
 
-    <groupId>com.funtl</groupId>
-    <artifactId>myshop-dependencies</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <groupId>top.yinjinbiao</groupId>
+    <artifactId>hshop-dependencies</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
-    <name>myshop-dependencies</name>
-    <url>http://www.funtl.com</url>
-    <inceptionYear>2018-Now</inceptionYear>
 
     <properties>
         <!-- Environment Settings -->
@@ -29,16 +26,20 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Spring Cloud Settings -->
-        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
-        <spring-cloud-alibaba.version>0.2.1.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
 
         <!-- Spring Boot Settings -->
-        <spring-boot-alibaba-druid.version>1.1.10</spring-boot-alibaba-druid.version>
-        <spring-boot-tk-mybatis.version>2.1.4</spring-boot-tk-mybatis.version>
-        <spring-boot-pagehelper.version>1.2.10</spring-boot-pagehelper.version>
+        <spring-boot-alibaba-druid.version>1.1.14</spring-boot-alibaba-druid.version>
+        <spring-boot-pagehelper.version>1.2.13</spring-boot-pagehelper.version>
+
+        <!-- Data Access Settings -->
+        <mybatis.spring.boot.starter.version>1.3.2</mybatis.spring.boot.starter.version>
 
         <!-- Commons Settings -->
         <mysql.version>8.0.13</mysql.version>
+        <guava.version>29.0-jre</guava.version>
+        <lombok.version>1.18.12</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -65,22 +66,35 @@
                 <version>${spring-boot-alibaba-druid.version}</version>
             </dependency>
             <dependency>
-                <groupId>tk.mybatis</groupId>
-                <artifactId>mapper-spring-boot-starter</artifactId>
-                <version>${spring-boot-tk-mybatis.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${spring-boot-pagehelper.version}</version>
             </dependency>
             <!-- Spring Boot End -->
 
+            <!-- Data Access Settings Begin-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.boot.starter.version}</version>
+            </dependency>
+            <!-- Data Access Settings End-->
+
             <!-- Commons Begin -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
             <!-- Commons End -->
         </dependencies>
@@ -219,28 +233,16 @@
         <repository>
             <id>nexus-releases</id>
             <name>Nexus Release Repository</name>
-            <url>http://192.168.10.146:8081/repository/maven-releases/</url>
+            <url>http://118.190.101.57:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>http://192.168.10.146:8081/repository/maven-snapshots/</url>
+            <url>http://118.190.101.57:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
     <repositories>
-        <repository>
-            <id>nexus</id>
-            <name>Nexus Repository</name>
-            <url>http://192.168.10.146:8081/repository/maven-public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-
         <repository>
             <id>aliyun-repos</id>
             <name>Aliyun Repository</name>
@@ -296,18 +298,6 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>nexus</id>
-            <name>Nexus Plugin Repository</name>
-            <url>http://192.168.10.146:8081/repository/maven-public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
-
-        <pluginRepository>
             <id>aliyun-repos</id>
             <name>Aliyun Repository</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
@@ -326,23 +316,18 @@
 ## 创建通用的工具类库
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>hshop-dependencies</artifactId>
+        <groupId>top.yinjinbiao</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.funtl</groupId>
-        <artifactId>myshop-dependencies</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../myshop-dependencies/pom.xml</relativePath>
-    </parent>
-
-    <artifactId>myshop-commons</artifactId>
+    <artifactId>hshop-commons</artifactId>
     <packaging>jar</packaging>
-
-    <name>myshop-commons</name>
-    <url>http://www.funtl.com</url>
-    <inceptionYear>2018-Now</inceptionYear>
 
     <dependencies>
         <dependency>
@@ -350,46 +335,36 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+    
 </project>
 ```
 
 ## 创建通用的领域模型
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>hshop-dependencies</artifactId>
+        <groupId>top.yinjinbiao</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.funtl</groupId>
-        <artifactId>myshop-dependencies</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../myshop-dependencies/pom.xml</relativePath>
-    </parent>
-
-    <artifactId>myshop-commons-domain</artifactId>
+    <artifactId>hshop-commons-domain</artifactId>
     <packaging>jar</packaging>
 
-    <name>myshop-commons-domain</name>
-    <url>http://www.funtl.com</url>
-    <inceptionYear>2018-Now</inceptionYear>
-
     <dependencies>
-        <!-- Commons Begin -->
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-        </dependency>
-        <!-- Commons End -->
-
         <!-- Projects Begin -->
         <dependency>
-            <groupId>com.funtl</groupId>
-            <artifactId>myshop-commons</artifactId>
+            <groupId>top.yinjinbiao</groupId>
+            <artifactId>hshop-commons</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <!-- Projects End -->
     </dependencies>
+
 </project>
 ```
 
