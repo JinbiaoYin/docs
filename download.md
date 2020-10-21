@@ -33,7 +33,7 @@ title: 下载
 - [v2rayN](https://gitee.com/shuaibiao/software/raw/master/v2%203.1.7z)
 - [XShell6](https://gitee.com/shuaibiao/software/blob/master/Xshell.exe)
 - [XFtp](https://gitee.com/shuaibiao/software/blob/master/Xftp_5.0.543.exe)
-
+- [NodeJS](https://nodejs.org/en/)
 
 ## 参考资料
 1. [IntelliJ IDEA破解教程持续更新](https://www.algerfan.cn/articles/2019/03/06/1551868940012.html)
