@@ -50,7 +50,7 @@ POM 也包含了目标和插件。在执行任务或目标时，Maven 会使用�
 依赖有依赖范围，依赖范围对依赖的传递也有影响。
 scope：
 - complie(默认)
-- provided
+- provided(不会传递，只在本工程下有效，不会打包)
 - runtime
 - test
 - import (解决maven只有单继承的问题)

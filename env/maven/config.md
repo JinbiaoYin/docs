@@ -1,5 +1,5 @@
 ---
-title: maven配置镜像和私服
+title: maven配置
 ---
 
 > 配置的优先级逐渐递增。
