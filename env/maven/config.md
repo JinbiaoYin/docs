@@ -136,46 +136,60 @@ title: maven配置
 ```
 
 
-## Maven 无法下载依赖
+## Maven 使用规范
+正常来说，我们会在自己公司的内部网络中部署 `Nexus` ，用来管理我们的依赖。
 
-一般是由于网络问题，建议本地项目配置 repository 为阿里云的仓库（一般公司都是配好的，如果没配，那就自己在 `settings.xml` 中配置阿里云镜像）。
-
-如果配置阿里云镜像还是无法下载，且自己公司没有搭建私服，可以使用就近节点，例如我自己搭建的私服。
-
-在Maven `Settings.xml` 中配置就近节点的私服。
-
-```xml
- <profiles>
-    <profile>
-      <activation>
-        <!-- 默认激活此 profile -->
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <repositories>
-        <repository>
-          <id>yinjinbiao</id>
-          <url>http://118.190.101.57:8081/repository/maven-public/</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
-      <pluginRepositories>
-        <pluginRepository>
-          <id>yinjinbiao_plugin</id>
-          <url>http://118.190.101.57:8081/repository/maven-public/</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository>
-      </pluginRepositories>
-    </profile>
+在搭建`Nexus`完成后，可以在自己来创建`Repositories`。例如`aliyun`，`spring`的私服地址。
+```
+http://maven.aliyun.com/nexus/content/groups/public/
+https://repo.spring.io/milestone
+https://repo.spring.io/snapshot
 ```
 
+然后把它们聚合到`maven-public`中。
 
+在 maven 的`setting.xml`中，配置`server`节点
+```xml
+      <server>
+        <id>nexus-public</id>
+        <username>admin</username>
+        <password>yinjinbiao!2020</password>
+      </server>
+      <server>
+          <id>nexus-releases</id>
+          <username>admin</username>
+          <password>yinjinbiao!2020</password>
+      </server>
+      <server>
+          <id>nexus-snapshots</id>
+          <username>admin</username>
+          <password>yinjinbiao!2020</password>
+      </server>
+```
+
+配置`mirror`节点
+```xml
+      <mirror>
+          <id>nexus-public</id>
+          <mirrorOf>*</mirrorOf>
+          <name>Nexus Public</name>
+          <url>http://118.190.101.57:8081/repository/maven-public/</url>
+      </mirror>
+```
+这样，所有的依赖都会从`http://118.190.101.57:8081/repository/maven-public/`上下载，而这个低质上我们上述配置了聚合的地址。所以这里只需要配置私服的`maven-public`就相当于配置了多个。
+
+如果项目中，想要上传jar包，需要配置：
+```xml
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://118.190.101.57:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://118.190.101.57:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+```
