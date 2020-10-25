@@ -172,3 +172,25 @@ CPU存在乱序执行的问题。
 虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。
 
 程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要进行垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。
+
+### `ThreadLocal`
+`ThreadLocal`是线程本地变量，`ThreadLocal`中填充的变量都属于当前线程。
+
+#### `ThreadLocal`是怎么做到每个线程都有自己的变量，做到线程隔离的呢？
+`ThreadLocal`类中，有一个`ThreadLocalMap`，当调用`set(T value)`，方法时，实际是向这个`Map`里放了一个`K-V`键值对，`ThreadLocal`对象作为key，value作为value。
+
+因此真正存储值的其实是`Thread`对象中的成员变量`ThreadLocalMap`。
+
+#### 为什么`ThreadLocalMap`中的key使用弱引用？
+当我们创建了一个`ThreadLocal对象时`，例如`TreadLocal<Person> tl = new ThreadLocal<>()`。此时有强引用`tl`指向了这个对象。当执行set时，`ThreadLocalMap`中又有`key`指向了这个`ThreadLocal`对象。
+
+此时就是同时有两个强引用指向了`ThreadLocal`对象，即使我们用不到了这个`ThreadLocal`对象时，把`tl=null`，该对象还是不会被垃圾回收，因为还有个强引用key指向它。因此，我们使用弱引用key来指向`ThreadLocal`对象。
+
+但是还是会有内存泄漏？因为即使作为key的`ThreadLocal`被垃圾回收了，key变成了null，导致`value`还存在并且再也无法获取到。
+
+要解决这个问题，我们要在使用完`ThreadLocal`时，手动把它`remove`掉。
+
+### `Thread`中的方法`sleep`,`yield`,`join`
+- `sleep`,当前线程休眠，规定时间后转为就绪态。
+- `yield`,当前线程由运行态转为就绪态。
+- `join`,调用`join()`的线程加入当前线程，必须等`join`线程执行完毕，当前线程才会继续执行。
